@@ -1,51 +1,32 @@
 <template>
   <div>
-    <button
-      type="button"
-      class="btn btn-primary btn-sm"
-      v-if="isShowBtn"
-      @click="isShowBtn = false"
-    >
-      +Tag
-    </button>
-    <input
-      v-else
-      type="text"
-      style="width: 70px"
-      v-model.trim="tagInfo"
-      @blur="addTagInfo"
-      @keydown.enter="addTagInfo"
-      v-focus
-    />
+    <button  v-if="isBtnShow" @click="isBtnShow = false" type="button" class="btn btn-primary btn-sm">+Tag</button>
+    <input v-model.trim="tagMsg" v-else type="text" v-focus @blur="blurFn" @keydown.enter="blurFn"/>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      isShowBtn: true,
-      tagInfo: "",
-    };
-  },
-  directives: {
-    focus: {
-      // 当绑定的dom 插入父节点 调用inserted 钩子
-      inserted(el) {
-        el.focus();
-      },
-    },
-  },
-  methods: {
-    addTagInfo() {
-      this.isShowBtn = true;
-      if (this.tagInfo !== "") {
-        this.$emit("add-info",this.tagInfo);
+    data() {
+      return {
+        isBtnShow:true,
+        tagMsg:''
       }
-      // 清空
-      this.tagInfo =""
     },
-  },
+    directives:{
+      focus:{
+        inserted(el){
+          el.focus()
+        }
+      }
+    },
+    methods:{
+      blurFn(){
+        this.isBtnShow = true
+        this.$emit("add-info",this.tagMsg)
+        this.tagMsg = ''
+      }
+    }
 };
 </script>
 

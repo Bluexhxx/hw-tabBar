@@ -1,11 +1,11 @@
 <template>
   <div class="my-tab-bar">
     <div
+      class="tab-item"
       v-for="(item, index) in list"
       :key="index"
-      class="tab-item"
-      :class="['tab-item', { current: index === active }]"
-      @click="[(active = index),$emit('change-cpnName',item.componentName)]"
+      @click="[active = index,changeCpnName(item.componentName)]"
+      :class="{ current: active === index }"
     >
       <!-- 图标 -->
       <span :class="`iconfont ${item.iconText}`"></span>
@@ -17,31 +17,29 @@
 
 <script>
 export default {
-  // 限制list 传过来的个数
-  // validator(val) :自定义校验器 需要返回布尔值，
-  // 返回true 校验成功 false 校验失败
-  //  val 校验数据
+  data() {
+    return {
+      active: 0,
+    };
+  },
   props: {
     list: {
       type: Array,
       required: true,
       validator(val) {
-        // console.log(val);
-        const len = val.length;
-        if (len <= 4 && len >= 0) {
-          return true;
+        if (val.length >= 0 && val.length <= 4) {
+          return true; // 符合条件就return true
+        } else {
+          throw new Error("数据在0-4位之间");
         }
-        // 失败的时候自己抛出一个错误信息
-        throw new Error("Your data should be between 0 and 4 in length");
       },
     },
   },
-  data() {
-    return {
-      // 记录点击的那个下标
-      active: 0,
-    };
-  },
+  methods:{
+    changeCpnName(cpnName){
+      this.$emit("change-cpnname",cpnName)
+    }
+  }
 };
 </script>
 
@@ -56,8 +54,9 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: white;
   line-height: 1;
+
+  background-color: white;
   .tab-item {
     display: flex;
     flex-direction: column;

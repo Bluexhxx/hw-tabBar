@@ -1,25 +1,23 @@
 <template>
   <div class="app">
-    <!-- 头部 -->
-    <my-header title="TabBar案例" background=""></my-header>
-    <!-- 商品列表主体内容 -->
+    <my-header title="TabBar案例作业" background="skyblue"></my-header>
     <component :is="componentName"></component>
-    <!-- footer -->
-    <my-footer :list="tabList" @change-cpnName="componentName = $event"></my-footer>
+    <my-footer :list="tabList" @change-cpnname="componentName = $event"></my-footer>
   </div>
 </template>
-
 <script>
-import MyHeader from "cpns/MyHeader.vue";
 import MyFooter from "cpns/MyFooter.vue";
+import MyHeader from "cpns/MyHeader.vue";
+
 import MyGoodsList from "@/views/MyGoodsList.vue";
 import MyGoodsSearch from "@/views/MyGoodsSearch.vue";
 import MyUserInfo from "@/views/MyUserInfo.vue";
+
 export default {
-  components: { MyHeader, MyFooter, MyGoodsList, MyGoodsSearch, MyUserInfo },
+  components: { MyFooter, MyHeader, MyGoodsSearch, MyUserInfo, MyGoodsList },
   data() {
     return {
-      componentName: MyGoodsList,
+      componentName: "MyGoodsList",
       tabList: [
         {
           iconText: "icon-shangpinliebiao",
@@ -39,12 +37,13 @@ export default {
       ],
     };
   },
+  methods:{
 
+  }
 };
 </script>
-
 <style scoped>
-.app{
+.app {
   padding: 45px 0 50px 0;
 }
 </style>

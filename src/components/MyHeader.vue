@@ -1,17 +1,17 @@
 <template>
+  <!-- 动态style -->
+  <!-- :style="{ 属性名:属性值 }" -->
   <div class="my-header" :style="{ background }">{{ title }}</div>
 </template>
 
 <script>
 export default {
-  // props对象形式
+
   props: {
-    title: {
-      type: String,
-      default: "",
-    },
+    title: String,
     background: {
       type: String,
+      default: "",
     },
   },
 };
